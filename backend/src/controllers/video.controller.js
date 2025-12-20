@@ -197,8 +197,8 @@ const updateVideo = asyncHandler(async (req, res) => {
     if (title) updateFields.title = title
     if (description) updateFields.description = description
     
-    // Check if thumbnail is uploaded
-    const thumbnailLocalPath = req.files?.thumbnail?.[0]?.path
+    // Check if thumbnail is uploaded (multer single upload => req.file)
+    const thumbnailLocalPath = req.file?.path
     if (thumbnailLocalPath) {
         const thumbnail = await uploadOnCloudinary(thumbnailLocalPath)
         if (thumbnail) {
