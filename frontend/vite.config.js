@@ -15,7 +15,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://youtube-clone-4u6r.onrender.com',
         changeOrigin: true,
       },
     },
