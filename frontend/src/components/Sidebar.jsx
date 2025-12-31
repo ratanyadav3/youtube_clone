@@ -20,9 +20,7 @@ const Sidebar = () => {
     return () => window.removeEventListener('toggle-sidebar', handler)
   }, [])
   const [subscriptions, setSubscriptions] = useState([])
-  const [subscribers, setSubscribers] = useState([])
   const [subError, setSubError] = useState(null)
-  const [subsError, setSubsError] = useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,10 +34,6 @@ const Sidebar = () => {
         const subs = subsData?.data?.subscriptions || []
         setSubscriptions(subs)
 
-        // Users subscribed to my channel
-        const { data: subscrData } = await api.get(`/subscriptions/u/${user._id}`)
-        const subscr = subscrData?.data?.subscribers || []
-        setSubscribers(subscr)
       } catch (err) {
         // differentiate errors roughly
         if (!subscriptions.length) setSubError('Unable to load subscriptions')
@@ -51,7 +45,7 @@ const Sidebar = () => {
   }, [user])
 
   const baseClasses =
-    'fixed md:sticky top-16 left-0 z-10 h-[calc(100vh-64px)] w-full sm:w-72 lg:w-60 flex-col gap-1 border-r border-white/5 bg-yt-bg/90 p-3 text-white backdrop-blur'
+    'fixed md:sticky top-16 left-0 z-10 h-[calc(100vh-64px)] w-full sm:w-72 lg:w-60 flex-col gap-1 border-r border-white/8 bg-yt-bg/90 p-3 text-white backdrop-blur'
   const visibilityClasses = mobileOpen ? 'flex md:flex' : 'hidden md:flex'
 
   return (
@@ -117,39 +111,6 @@ const Sidebar = () => {
               )}
             </div>
 
-            <p className="mt-4 mb-2 px-2 text-xs font-semibold uppercase tracking-wide text-yt-muted">
-              Subscribed (Followers)
-            </p>
-            {subsError && <p className="px-2 text-[11px] text-red-400">{subsError}</p>}
-            <div className="flex flex-col gap-1">
-              {subscribers.map((sub) => (
-                <Link
-                  key={sub._id}
-                  to={`/channel/${sub.subscriber?.username}`}
-                  className="flex items-center gap-2 rounded-lg px-2 py-1 text-sm text-yt-muted transition hover:bg-white/10 hover:text-white"
-                >
-                  <div className="h-7 w-7 overflow-hidden rounded-full bg-white/10">
-                    {sub.subscriber?.avatar ? (
-                      <img
-                        src={sub.subscriber.avatar}
-                        alt={sub.subscriber.username}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center text-[10px] text-yt-muted">
-                        {sub.subscriber?.username?.[0]?.toUpperCase() || '?'}
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex-1 truncate">
-                    <p className="truncate text-xs text-white">{sub.subscriber?.username}</p>
-                  </div>
-                </Link>
-              ))}
-              {subscribers.length === 0 && !subsError && (
-                <p className="px-2 text-[11px] text-yt-muted">No subscribers yet.</p>
-              )}
-            </div>
           </div>
         </>
       )}

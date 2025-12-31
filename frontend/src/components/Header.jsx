@@ -46,7 +46,7 @@ const Header = () => {
   /* ================= MOBILE SEARCH OVERLAY ================= */
   if (mobileSearchOpen) {
     return (
-      <header className="sticky top-0 z-20 border-b border-white/5 bg-yt-bg/90 px-3 py-2 backdrop-blur">
+      <header className="sticky top-0 z-20 border-b border-white/8 bg-yt-bg/90 px-3 py-2 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center gap-2">
           <button
             onClick={() => setMobileSearchOpen(false)}
@@ -81,8 +81,8 @@ const Header = () => {
 
   /* ================= NORMAL HEADER ================= */
   return (
-    <header className="sticky top-0 z-20 border-b border-white/5 bg-yt-bg/90 px-3 py-2 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center gap-3">
+    <header className="sticky top-0 z-20 border-b border-white/8 bg-yt-bg/90 px-3 py-2 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl justi gap-3">
         {/* Left: mobile menu + logo */}
         <div className="flex items-center gap-2">
           {user && (
