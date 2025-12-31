@@ -133,8 +133,8 @@ const VideoPage = () => {
   const owner = video.owner
 
   return (
-    <div className="flex flex-col gap-6 lg:flex-row">
-      <div className="flex-1 space-y-6">
+    <div className="flex flex-col gap-6 lg:flex-row px-10 ">
+      <div className="flex-1 space-y-3 ">
         <VideoPlayer src={video.videoFile} poster={video.thumbnail} />
 
         <div className="space-y-2 rounded-xl border border-white/5 bg-yt-card p-4">
@@ -194,8 +194,8 @@ const VideoPage = () => {
               <button
                 onClick={toggleSubscribe}
                 disabled={subLoading}
-                className={`rounded-full px-4 py-1 text-xs font-semibold text-white transition ${
-                  isSubscribed ? 'bg-white/10 hover:bg-white/20' : 'bg-white hover:bg-gray-200 text-black'
+                className={`rounded-full px-4 py-3 text-xs font-semibold text-white bg-white/10 transition ${
+                  isSubscribed ? 'bg-white/10 hover:bg-white/10' : 'bg-white/5 hover:bg-gray-600 text-black'
                 }`}
               >
                 {subLoading ? '...' : isSubscribed ? 'Subscribed' : 'Subscribe'}

@@ -46,8 +46,8 @@ const Header = () => {
   /* ================= MOBILE SEARCH OVERLAY ================= */
   if (mobileSearchOpen) {
     return (
-      <header className="sticky top-0 z-20 border-b border-white/8 bg-yt-bg/90 px-3 py-2 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center gap-2">
+      <header className="sticky top-0 z-20 border-b border-white/8 bg-yt-bg/90 px-6 py-2 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center gap-4">
           <button
             onClick={() => setMobileSearchOpen(false)}
             className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white"
@@ -81,8 +81,8 @@ const Header = () => {
 
   /* ================= NORMAL HEADER ================= */
   return (
-    <header className="sticky top-0 z-20 border-b border-white/8 bg-yt-bg/90 px-3 py-2 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl justi gap-3">
+    <header className="sticky top-0 z-20 border-b border-white/8 bg-yt-bg/90 px-5 py-2 backdrop-blur">
+      <div className="mx-auto flex max-w-8xl justify-between gap-3">
         {/* Left: mobile menu + logo */}
         <div className="flex items-center gap-2">
           {user && (
@@ -98,14 +98,14 @@ const Header = () => {
             onClick={() => navigate('/')}
             className="cursor-pointer text-lg font-semibold text-white"
           >
-            <span className="rounded bg-yt-red px-2 py-1 text-black">YT</span> Clone
+            <span className="rounded bg-yt-red px-2 py-1 text-black">V</span> Stream
           </div>
         </div>
 
         {/* Search */}
         <form
           onSubmit={onSearch}
-          className="hidden flex-1 items-center gap-2 rounded-full border border-white/10 bg-yt-card px-3 py-2 text-sm sm:flex"
+          className="hidden  w-1/3 items-center gap-2 rounded-full border border-white/10 bg-yt-card px-3 py-2 text-sm sm:flex"
         >
           <FiSearch className="text-yt-muted" />
           <input
@@ -123,7 +123,7 @@ const Header = () => {
         </form>
 
         {/* Right actions */}
-        <div className="ml-auto flex items-center gap-2">
+        <div className=" flex items-center gap-5">
           {/* Mobile search icon */}
           <button
             onClick={() => setMobileSearchOpen(true)}
@@ -160,14 +160,38 @@ const Header = () => {
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
                 className="flex items-center gap-2 rounded-full bg-white/5 px-3 py-2 text-white hover:bg-white/10"
               >
-                <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center">
-                  {user.username?.[0]?.toUpperCase()}
-                </div>
-                <span className="hidden sm:inline">{user.username}</span>
+                <div className="h-8 w-8 overflow-hidden rounded-full bg-white/10">
+                {user?.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt={user.username}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center text-lg text-yt-muted">
+                    {user?.username?.[0]?.toUpperCase() || '?'}
+                  </div>
+                )}
+              </div>    
+                
               </button>
 
               {showProfileMenu && (
                 <div className="absolute right-0 mt-2 w-48 rounded-lg border border-white/10 bg-yt-card">
+                  <div className="p-3 flex items-center">
+                     <div className="h-10 w-11 overflow-hidden rounded-full bg-white/10">
+                  <img
+                    src={user.avatar}
+                    className="h-full w-full object-cover"
+                  /> 
+              </div> 
+               <span className="block w-full px-4 py-2 text-sm text-yt-muted">
+                    {user?.fullName} <br />
+                    <strong className="text-white">{user.username}</strong>
+                  </span>
+              </div>
+                 
+                  <hr className="my-1 border-white/10" />
                   <Link
                     to={`/channel/${user.username}`}
                     className="block px-4 py-2 hover:bg-white/10"

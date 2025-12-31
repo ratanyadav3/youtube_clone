@@ -21,7 +21,7 @@ const App = () => {
       <Header />
       <div className="flex">
         <Sidebar />
-        <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-6">
+        <main className="mx-auto flex w-full max-w-8xl flex-1 flex-col px-4 py-2">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/watch/:id" element={<VideoPage />} />

@@ -21,13 +21,14 @@ const Sidebar = () => {
   }, [])
   const [subscriptions, setSubscriptions] = useState([])
   const [subError, setSubError] = useState(null)
+  const [subLoading, setSubLoading] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       if (!user?._id) return
       try {
         setSubError(null)
-        setSubsError(null)
+        setSubLoading(true)
 
         // Channels I am subscribed to
         const { data: subsData } = await api.get(`/subscriptions/c/${user._id}`)
@@ -35,9 +36,9 @@ const Sidebar = () => {
         setSubscriptions(subs)
 
       } catch (err) {
-        // differentiate errors roughly
         if (!subscriptions.length) setSubError('Unable to load subscriptions')
-        if (!subscribers.length) setSubsError('Unable to load subscribers')
+      } finally {
+        setSubLoading(false)
       }
     }
 
@@ -78,6 +79,7 @@ const Sidebar = () => {
               Subscriptions
             </p>
             {subError && <p className="px-2 text-[11px] text-red-400">{subError}</p>}
+            {subLoading && <p className="px-2 text-[11px] text-yt-muted">Loading...</p>}
             <div className="flex flex-col gap-1">
               {subscriptions.map((sub) => (
                 <Link
@@ -106,7 +108,7 @@ const Sidebar = () => {
                   </div>
                 </Link>
               ))}
-              {subscriptions.length === 0 && !subError && (
+              {subscriptions.length === 0 && !subError && !subLoading && (
                 <p className="px-2 text-[11px] text-yt-muted">No subscriptions yet.</p>
               )}
             </div>
